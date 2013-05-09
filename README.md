@@ -19,9 +19,7 @@ Free-time experiment to build a node.js based SQL query builder
   //                    .is('node', 'NULL')
                     .and().not("data", false)
                 )
-          )
-  console.log( query.toString() );
-
-  console.log( query.toString() );
+          ).toString();
+  console.log( query );
 
 ```
