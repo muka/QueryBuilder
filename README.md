@@ -7,7 +7,7 @@ Free-time experiment to build a node.js based SQL query builder
 
   var qb = require("QueryBuilder");
 
-  var query =
+  var where = 
           qb("source", "website") // =
           .and("date", "", ">= NOW()") // =
           .or("name", "googl%", "LIKE") // LIKE
@@ -20,6 +20,7 @@ Free-time experiment to build a node.js based SQL query builder
                     .and().not("data", false)
                 )
           ).toString();
-  console.log( query );
+
+  console.log( where );
 
 ```
