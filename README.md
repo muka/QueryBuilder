@@ -9,9 +9,9 @@ Free-time experiment to build a node.js based SQL query builder
 
   var where = 
           qb("source", "website") // =
-          .and("date", "", ">= NOW()") // =
-          .or("name", "googl%", "LIKE") // LIKE
-          .or(
+          .and("date", "", ">= NOW()") // no escaping
+          .or("name", "googl%", "LIKE") // LIKE 
+          .or( // nested OR
             qb().within("name", [1,2,3])
               .or()
                 .not(
