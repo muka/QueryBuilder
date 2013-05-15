@@ -5,19 +5,31 @@ Free-time experiment to build a node.js based SQL query builder
 
 ```javascript
 
-  var q = require("QueryBuilder");
 
-  var where = q("title", "my title%", "LIKE")
-                .or("birthday", "1367509003122", '>=')
-                .and(
-                  q("title", "ciao").and("birthday", "1367509003122", '<=')
-                )
-                .not(
-                  q("title", "EMPTY").and("birthday", "NULL", '<>')
-                ).toString();
+  var qb = require('QueryBuilder');
+  var query =
+            qb("source", "website") // =
+            .and("date", "", ">= NOW()") // =
+            .or(qb().like("name", "googl%")) // LIKE
+            .or(
+              qb()
+                .within("name", [1,2, '3'])
+                .or()
+                  .not(
+                    qb()
+                    .is('node', false)
+                    .or().isNot(
+                      qb().within('pippo', ['a', 'b', 'c']))
+                    )
+                    .and(
+                      qb()
+                      .not("locked", true)
+                      .or()
+                        .not().between('a','z').or().between(0.9, 0.99)
+                    )
 
-  console.log('SELECT * FROM table where ' + where);
-  //SELECT * FROM table WHERE `title` LIKE 'my title%' OR `birthday` >= '1367509003122' AND  (`title` = 'ciao' AND `birthday` <= '1367509003122' )  AND  NOT    (`title` = 'EMPTY' AND `birthday` <> 'NULL' )
+            )
+  console.log( query.toString() );
 
 
 ```
